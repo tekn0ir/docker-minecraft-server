@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# shellcheck source=start-utils
+. "${SCRIPTS:-/}start-utils"
+isDebugging && set -x
+
+downloadAsset() {
+  url=${1?}
+  output=${2?}
+  name=${3?}
+
+  log "Downloading $name"
+  if ! curl -o "$output" -fsSL "$url"; then
+    log "ERROR failed to download $name from $url (status=$?)"
+    exit 1
+  fi
+}
+
+floodgateUrl="https://ci.opencollab.dev/job/GeyserMC/job/Floodgate/job/master/lastSuccessfulBuild/artifact/spigot/target/floodgate-spigot.jar"
+floodgateOutput="plugins/floodgate-spigot.jar"
+geyserUrl="https://ci.opencollab.dev/job/GeyserMC/job/Geyser/job/master/lastSuccessfulBuild/artifact/bootstrap/spigot/target/Geyser-Spigot.jar"
+geyserOutput="plugins/Geyser-Spigot.jar"
+
+downloadAsset "$floodgateUrl" "$floodgateOutput" "FloodGate"
+downloadAsset "$geyserUrl" "$geyserOutput" "Geyser"
