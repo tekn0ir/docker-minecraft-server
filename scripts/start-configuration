@@ -163,6 +163,8 @@ MC_HEALTH_EXTRA_ARGS=(
   " > /data/.mc-health.env
 fi
 
+${SCRIPTS:-/}start-setupGeyser
+
 log "Resolving type given ${TYPE}"
 case "${TYPE^^}" in
   *BUKKIT|SPIGOT)

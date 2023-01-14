@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.3
 
-ARG BASE_IMAGE=eclipse-temurin:17-jre-focal
+ARG BASE_IMAGE=eclipse-temurin:17-jdk
 FROM ${BASE_IMAGE}
 
 # CI system should set this to a hash or git revision of the build directory and it's contents to
@@ -63,6 +63,7 @@ ENV TYPE=VANILLA VERSION=LATEST EULA="" UID=1000 GID=1000 RCON_PASSWORD=minecraf
 COPY --chmod=755 scripts/start* /
 COPY --chmod=755 bin/ /usr/local/bin/
 COPY --chmod=755 bin/mc-health /health.sh
+COPY --chmod=644 files/server.properties /tmp/server.properties
 COPY --chmod=644 files/log4j2.xml /image/log4j2.xml
 COPY --chmod=755 files/auto /auto
 
